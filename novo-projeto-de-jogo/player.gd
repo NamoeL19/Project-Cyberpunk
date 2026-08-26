@@ -6,6 +6,11 @@ const SPRINT_SPEED = 7.5
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.003
 
+#VARIAVEIS PARA AGACHAR E TALS
+var crounchingSpeed = 2.5
+var isCrouching = false
+
+
 #BOB VARIABLES
 const BOB_FREQ = 2.0
 const BOB_AMP = 0.08
@@ -40,15 +45,25 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
-
-
 	#CORRERRRRR
-	if Input.is_action_pressed("sprint"):
+	if isCrouching:
+		speed = crounchingSpeed
+	elif Input.is_action_pressed("sprint"):
 		speed = SPRINT_SPEED
 	else:
 		speed = WALK_SPEED
-
-
+		
+	#AQUI AGACHAAA
+	if Input.is_action_just_pressed("crouch"):
+		if isCrouching == false:
+			movementStateChange("crouch")
+			speed = crounchingSpeed
+			print("estou furtivo igual o batman")
+			
+		elif isCrouching == true:
+			movementStateChange("uncrouch")
+			speed = WALK_SPEED
+		
 	#AQUI É A MOVIMENTAÇÃO BASICA DE ANDAR
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -65,7 +80,8 @@ func _physics_process(delta: float) -> void:
 		
 	#head bob
 	t_bob += delta * velocity.length() * float(is_on_floor())
-	camera.transform.origin = _headbob(t_bob)
+	var target_bob = _headbob(t_bob) if direction.length() > 0.1 and is_on_floor() else Vector3.ZERO
+	camera.transform.origin = camera.transform.origin.lerp(target_bob, delta * 6.0)
 	
 	#FOV
 	var velocity_clamped = clamp(velocity.length(), 0.5, SPRINT_SPEED * 2)
@@ -81,3 +97,26 @@ func _headbob(time) -> Vector3:
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
 	
+func movementStateChange(changeType):
+	match changeType:
+		"crouch":
+			$AnimationPlayer.play("StadingToCrounch")
+			isCrouching = true
+			changeCollisionShapeTo("crouching")
+		"uncrouch":
+			$AnimationPlayer.play_backwards("StadingToCrounch")
+			isCrouching = false
+			changeCollisionShapeTo("standing")
+			
+#Change collision shapes for standing, crouch, crawl
+func changeCollisionShapeTo(shape):
+	match shape:
+		"crouching":
+			#Disabled == false is enabled!
+			$CrounchCollisionShape.disabled = false
+			$StandingCollisionShape.disabled = true
+		"standing":
+			#Disabled == false is enabled!
+			$StandingCollisionShape.disabled = false
+			$CrounchCollisionShape.disabled = true
+			

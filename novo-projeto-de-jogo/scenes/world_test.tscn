@@ -6,7 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://cmb7huwlvqdbk" path="res://placeholders/GreyboxTextures/greybox_green_grid.png" id="2_i6uhy"]
 [ext_resource type="Texture2D" uid="uid://2tkrar4lm7ym" path="res://placeholders/GreyboxTextures/greybox_yellow_grid.png" id="3_voen0"]
 [ext_resource type="Texture2D" uid="uid://d0jljm84d6lv7" path="res://placeholders/GreyboxTextures/greybox_red_grid.png" id="4_4bo10"]
+[ext_resource type="Texture2D" uid="uid://byy3y4bl8ucxw" path="res://placeholders/GreyboxTextures/greybox_orange_grid.png" id="4_voen0"]
 [ext_resource type="Texture2D" uid="uid://52c2yvs3gki0" path="res://placeholders/GreyboxTextures/greybox_teal_solid.png" id="5_d357a"]
+[ext_resource type="Texture2D" uid="uid://dk81qgeiheqtg" path="res://placeholders/GreyboxTextures/greybox_purple_grid.png" id="8_4bo10"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o8rpv"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -35,6 +37,18 @@ uv1_triplanar = true
 albedo_texture = ExtResource("2_i6uhy")
 uv1_triplanar = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4bo10"]
+albedo_texture = ExtResource("4_voen0")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d357a"]
+albedo_texture = ExtResource("4_voen0")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6qtqi"]
+albedo_texture = ExtResource("4_voen0")
+uv1_triplanar = true
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_57qmd"]
 albedo_texture = ExtResource("3_voen0")
 uv1_triplanar = true
@@ -45,6 +59,18 @@ uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4v7s"]
 albedo_texture = ExtResource("5_d357a")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a1hch"]
+albedo_texture = ExtResource("8_4bo10")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6qvj"]
+albedo_texture = ExtResource("8_4bo10")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q53c7"]
+albedo_texture = ExtResource("8_4bo10")
 uv1_triplanar = true
 
 [node name="World_Test" type="Node3D" unique_id=1915978537]
@@ -72,8 +98,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1208936, 0.41616154)
 text = "Modelo do Player."
 
 [node name="CSGBox3D" type="CSGBox3D" parent="map" unique_id=1990165582]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0)
 use_collision = true
-size = Vector3(48, 0.001, 32)
+size = Vector3(72, 0.001, 32)
 material = SubResource("StandardMaterial3D_voen0")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="map" unique_id=1374165994]
@@ -82,11 +109,39 @@ use_collision = true
 size = Vector3(48, 3, 1.3115234)
 material = SubResource("StandardMaterial3D_7mhm3")
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="map" unique_id=501580192]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -23.735872, 1.4995, 0.5072632)
+[node name="CSGBox3D13" type="CSGBox3D" parent="map" unique_id=185349258]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.00022, 1.4995, -15.416679)
 use_collision = true
-size = Vector3(31, 3, 1.3115234)
+size = Vector3(24, 3, 1.3115234)
+material = SubResource("StandardMaterial3D_4bo10")
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="map" unique_id=1222949015]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.00022, 1.4995, 15.334465)
+use_collision = true
+size = Vector3(24, 3, 1.3115234)
+material = SubResource("StandardMaterial3D_d357a")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="map" unique_id=501580192]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -23.735872, 1.4995, -8.492737)
+use_collision = true
+size = Vector3(13, 3, 1.3115234)
 material = SubResource("StandardMaterial3D_7mhm3")
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="map" unique_id=708433304]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -47.335873, 1.4995, -0.092736244)
+use_collision = true
+size = Vector3(29.800001, 3, 1.3115234)
+material = SubResource("StandardMaterial3D_6qtqi")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="map" unique_id=551545530]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -23.735872, 1.4995, 8.639605)
+use_collision = true
+size = Vector3(13, 3, 1.3115234)
+material = SubResource("StandardMaterial3D_7mhm3")
+
+[node name="Label3D" type="Label3D" parent="map/CSGBox3D9" unique_id=1835356481]
+transform = Transform3D(-1, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -1, -8.505603, 0, -0.77697563)
+text = "Area de teste dos Inimigos"
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="map" unique_id=779436797]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 24.25218, 1.4995, 0.5072632)
@@ -131,6 +186,39 @@ material = SubResource("StandardMaterial3D_g4v7s")
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.5594454, 0, 0)
 text = "3 metros de largura
 4 metros de altura"
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="map" unique_id=650010511]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.077237, 1, 6.1035423)
+use_collision = true
+size = Vector3(4, 2, 1)
+material = SubResource("StandardMaterial3D_a1hch")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="map" unique_id=1488477184]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.077237, 1.675, 7.1035423)
+use_collision = true
+size = Vector3(4, 0.65, 1)
+material = SubResource("StandardMaterial3D_c6qvj")
+
+[node name="Label3D" type="Label3D" parent="map/CSGBox3D12" unique_id=1707891471]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.0059443, 0, 0)
+text = "2m
+de altura"
+
+[node name="Label3D2" type="Label3D" parent="map/CSGBox3D12" unique_id=1674155477]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.0059443, -0.7, -1.0083632)
+text = "Abertura
+de 1.35m"
+
+[node name="Label3D3" type="Label3D" parent="map/CSGBox3D12" unique_id=188196334]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.0059443, -0.7, 0.9916363)
+text = "Aperte 'C'
+para agachar"
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="map" unique_id=460545261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.077237, 1, 8.103542)
+use_collision = true
+size = Vector3(4, 2, 1)
+material = SubResource("StandardMaterial3D_q53c7")
 
 [node name="Personagens" type="Node" parent="." unique_id=1586152971]
 

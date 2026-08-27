@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://byy3y4bl8ucxw" path="res://placeholders/GreyboxTextures/greybox_orange_grid.png" id="4_voen0"]
 [ext_resource type="Texture2D" uid="uid://52c2yvs3gki0" path="res://placeholders/GreyboxTextures/greybox_teal_solid.png" id="5_d357a"]
 [ext_resource type="Texture2D" uid="uid://dk81qgeiheqtg" path="res://placeholders/GreyboxTextures/greybox_purple_grid.png" id="8_4bo10"]
+[ext_resource type="Script" uid="uid://cn8kdo1ps3mu3" path="res://scripts/components/hitbox_component.gd" id="10_d357a"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o8rpv"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -72,6 +73,8 @@ uv1_triplanar = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q53c7"]
 albedo_texture = ExtResource("8_4bo10")
 uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
 
 [node name="World_Test" type="Node3D" unique_id=1915978537]
 
@@ -224,3 +227,15 @@ material = SubResource("StandardMaterial3D_q53c7")
 
 [node name="player" parent="Personagens" unique_id=43849580 instance=ExtResource("1_7mhm3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+
+[node name="HitBoxComponent" type="Area3D" parent="." unique_id=1056368204]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5170765, 0.6095401, -5.758204)
+script = ExtResource("10_d357a")
+metadata/_custom_type_script = "uid://cn8kdo1ps3mu3"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBoxComponent" unique_id=1484082627]
+shape = SubResource("BoxShape3D_yf5fn")
+debug_color = Color(0.8982225, 0.31535292, 0, 0.41960785)
+
+[node name="Label3D" type="Label3D" parent="HitBoxComponent" unique_id=297822607]
+text = "VEM AQUI PRA APANHAR"

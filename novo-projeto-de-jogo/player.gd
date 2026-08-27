@@ -28,8 +28,12 @@ var gravity = 9.8
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	$HealthComponent.died.connect(on_died)
+	$HealthComponent.health_changed.connect(_on_health_changed)
 	
-
+func _on_health_changed(current_health: float) -> void:
+	print("Vida: ", current_health)
+	
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * SENSITIVITY)
@@ -120,3 +124,6 @@ func changeCollisionShapeTo(shape):
 			$StandingCollisionShape.disabled = false
 			$CrounchCollisionShape.disabled = true
 			
+func on_died():
+	get_tree().reload_current_scene()
+	

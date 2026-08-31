@@ -118,9 +118,6 @@ text = "VEM AQUI PRA APANHAR"
 [node name="player" parent="." unique_id=43849580 instance=ExtResource("1_7mhm3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 
-[node name="Enemy1" parent="." unique_id=1240258861 instance=ExtResource("10_6qtqi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.179073, 8.148119, -8.397195)
-
 [node name="Enemies Area" type="Node3D" parent="." unique_id=1066410217]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Enemies Area" unique_id=1209603581]
@@ -284,3 +281,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.24569, 0.0995003, -3.17062
 use_collision = true
 size = Vector3(4, 2, 1)
 material = SubResource("StandardMaterial3D_q53c7")
+
+[node name="Enemy1" parent="." unique_id=1240258861 instance=ExtResource("10_6qtqi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.69205, 0.9004997, 11.274165)

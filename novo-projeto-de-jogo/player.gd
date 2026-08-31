@@ -26,13 +26,17 @@ var gravity = 9.8
 @onready var head = $head
 @onready var camera = $head/Camera3D
 
+#HUD IMPROVISADO TIRAR DEPOIS
+@onready var health_label = $PlayerHud/CanvasLayer/HealthLabel
+
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	$HealthComponent.died.connect(on_died)
 	$HealthComponent.health_changed.connect(_on_health_changed)
 	
+#HUD IMPROVISADO TIRAR DEPOIS
 func _on_health_changed(current_health: float) -> void:
-	print("Vida: ", current_health)
+	health_label.text = "Vida: %d" % current_health
 	
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:

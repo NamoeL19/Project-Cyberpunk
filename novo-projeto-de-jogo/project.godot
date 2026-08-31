@@ -11,12 +11,14 @@ config_version=5
 [application]
 
 config/name="TCC Cyberpunk"
-run/main_scene="uid://dib1bcc2g2twj"
+run/main_scene="uid://cb8rulcaojiur"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
 
+window/size/viewport_width=1270
+window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
@@ -28,8 +30,13 @@ folder_colors={
 "res://placeholders/": "red",
 "res://scenes/": "pink",
 "res://scripts/": "teal",
-"res://scripts/components/": "green"
+"res://scripts/components/": "teal"
 }
+
+[global_group]
+
+player=""
+enemies=""
 
 [input]
 

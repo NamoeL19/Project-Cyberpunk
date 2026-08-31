@@ -10,6 +10,7 @@ var current_health: float
 
 func _ready():
 	current_health = max_health
+	health_changed.emit(current_health)
 	
 func damage(attack: float):
 	current_health -= attack

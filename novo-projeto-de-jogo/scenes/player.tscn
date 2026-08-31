@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://hiba1k87c8hq"]
+[gd_scene format=3 uid="uid://cj68llba7rk33"]
 
 [ext_resource type="Script" uid="uid://duft28gepd4yh" path="res://player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://cvmlbomm2sfbd" path="res://scripts/components/hurt_component.gd" id="2_qhqgy"]
@@ -55,7 +55,11 @@ height = 1.2996094
 [sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
 size = Vector3(0.8, 1.8000001, 1)
 
-[node name="player" type="CharacterBody3D" unique_id=43849580]
+[sub_resource type="LabelSettings" id="LabelSettings_qhqgy"]
+font_size = 38
+font_color = Color(1, 0.14509805, 0.09019608, 1)
+
+[node name="player" type="CharacterBody3D" unique_id=43849580 groups=["player"]]
 script = ExtResource("1_3vyb7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1132613956]
@@ -90,5 +94,17 @@ shape = SubResource("BoxShape3D_g4v7s")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=44574406]
 script = ExtResource("3_dqkch")
-max_health = 100
+max_health = 50
 metadata/_custom_type_script = "uid://c8mf3fmtgf5j3"
+
+[node name="PlayerHud" type="Node" parent="." unique_id=1540902019]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="PlayerHud" unique_id=1885249134]
+
+[node name="HealthLabel" type="Label" parent="PlayerHud/CanvasLayer" unique_id=90397821]
+offset_left = 21.0
+offset_top = 542.0
+offset_right = 121.0
+offset_bottom = 595.0
+text = "Vida: 50"
+label_settings = SubResource("LabelSettings_qhqgy")

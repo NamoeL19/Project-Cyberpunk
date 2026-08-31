@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://d0aydwyycndw8"]
+
+[ext_resource type="Texture2D" uid="uid://e030ertfcb4f" path="res://placeholders/Project.png" id="1_ojbmu"]
+[ext_resource type="FontFile" uid="uid://dqb10d7od2bsg" path="res://placeholders/fonts/FczlFontRegular-e9Jol.ttf" id="2_e34f6"]
+
+[node name="Menu_Teste" type="Control" unique_id=1305801456]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=865510384]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_ojbmu")
+
+[node name="Button2" type="Button" parent="." unique_id=650638471]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 340.0
+offset_right = 737.0
+offset_bottom = 428.0
+theme_override_fonts/font = ExtResource("2_e34f6")
+theme_override_font_sizes/font_size = 60
+text = "PLAY"
+
+[node name="Button4" type="Button" parent="." unique_id=425366089]
+layout_mode = 0
+offset_left = 507.0
+offset_top = 442.0
+offset_right = 801.0
+offset_bottom = 530.0
+theme_override_fonts/font = ExtResource("2_e34f6")
+theme_override_font_sizes/font_size = 60
+text = "setting"
+
+[node name="Button3" type="Button" parent="." unique_id=1509456038]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 551.0
+offset_right = 737.0
+offset_bottom = 639.0
+theme_override_fonts/font = ExtResource("2_e34f6")
+theme_override_font_sizes/font_size = 60
+text = "quit"

@@ -12,4 +12,4 @@ func _on_health_changed(current_health: float) -> void:
 	health_label.text = "HP: %d" % current_health
 
 func on_died():
-	queue_free()
+	$".".queue_free()

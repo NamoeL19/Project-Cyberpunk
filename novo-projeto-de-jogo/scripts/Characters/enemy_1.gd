@@ -1,7 +1,15 @@
 extends CharacterBody3D
+class_name EnemyTest
 
-@onready var movement: MovementComponent = $MovementComponent
+@onready var health_label = $HPBar
 
 func _ready() -> void:
-	await get_tree().physics_frame
-	movement.set_movement_target(Vector3(-35, 0, 5))
+	$HealthComponent.died.connect(on_died)
+	$HealthComponent.health_changed.connect(_on_health_changed)
+	
+#HUD IMPROVISADO TIRAR DEPOIS
+func _on_health_changed(current_health: float) -> void:
+	health_label.text = "HP: %d" % current_health
+
+func on_died():
+	queue_free()

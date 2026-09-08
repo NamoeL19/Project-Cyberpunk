@@ -4,7 +4,10 @@
 [ext_resource type="Script" uid="uid://bvv8y4xpel3vm" path="res://scripts/Characters/enemy_1.gd" id="1_d3026"]
 [ext_resource type="Texture2D" uid="uid://diweaq26cuxc2" path="res://placeholders/GreyboxTextures/greybox_red_solid.png" id="1_ejytf"]
 [ext_resource type="Script" uid="uid://c8mf3fmtgf5j3" path="res://scripts/components/health_component.gd" id="2_ejytf"]
-[ext_resource type="Script" uid="uid://be3hxjcj5j82a" path="res://scripts/components/movement_component.gd" id="5_d3026"]
+[ext_resource type="Script" uid="uid://dclcdpk60ovuu" path="res://scripts/States/state_machines.gd" id="5_d3026"]
+[ext_resource type="Script" uid="uid://csv0acx0542e2" path="res://scripts/States/EnemyIdleTest.gd" id="6_l21ug"]
+[ext_resource type="FontFile" uid="uid://dqb10d7od2bsg" path="res://placeholders/fonts/FczlFontRegular-e9Jol.ttf" id="7_6nrqq"]
+[ext_resource type="Texture2D" uid="uid://d2c2uc86q463j" path="res://placeholders/kenney_googly-eyes/googly-b.png" id="8_oweuj"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g4v7s"]
 radius = 0.4
@@ -19,6 +22,15 @@ points = PackedVector3Array(0.38808236, 0.5888041, 0.013298327, -0.388082, -0.58
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
 height = 1.8701172
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_57qmd"]
+albedo_texture = ExtResource("8_oweuj")
+uv1_scale = Vector3(1.71, 1.71, 1.71)
+uv1_offset = Vector3(0.08, -0.865, 0)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yf5fn"]
+material = SubResource("StandardMaterial3D_57qmd")
+height = 0.001
 
 [node name="Enemy1" type="CharacterBody3D" unique_id=1240258861 groups=["enemies"]]
 script = ExtResource("1_d3026")
@@ -41,11 +53,30 @@ debug_color = Color(0.38129932, 0.4748481, 1, 0.41960785)
 
 [node name="HealthComponent" type="Node" parent="." unique_id=405700811]
 script = ExtResource("2_ejytf")
+max_health = 50
 metadata/_custom_type_script = "uid://c8mf3fmtgf5j3"
 
-[node name="MovementComponent" type="Node3D" parent="." unique_id=713530742 node_paths=PackedStringArray("body")]
+[node name="StateMachines" type="Node" parent="." unique_id=215992300 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("5_d3026")
-body = NodePath("..")
-metadata/_custom_type_script = "uid://be3hxjcj5j82a"
+initial_state = NodePath("EnemyIdleTest")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="MovementComponent" unique_id=2109490036]
+[node name="EnemyIdleTest" type="Node" parent="StateMachines" unique_id=480492224 node_paths=PackedStringArray("enemy")]
+script = ExtResource("6_l21ug")
+enemy = NodePath("../..")
+wander_radius = 3.0
+metadata/_custom_type_script = "uid://csv0acx0542e2"
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1733259390]
+
+[node name="HPBar" type="Label3D" parent="." unique_id=1402115776]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0782136, 0)
+text = "HP: 50"
+font = ExtResource("7_6nrqq")
+
+[node name="ZOLHUDO_DIR" type="MeshInstance3D" parent="." unique_id=792775323]
+transform = Transform3D(-1.7484554e-08, 4.371139e-08, 0.39999998, 0.39999998, 1.9106855e-15, 1.7484554e-08, 0, 1, -1.7484554e-08, -0.20330447, 0.49246007, 0.40590894)
+mesh = SubResource("CylinderMesh_yf5fn")
+
+[node name="ZOLHUDO_ESQ" type="MeshInstance3D" parent="." unique_id=1912638380]
+transform = Transform3D(5.2453665e-08, -4.371139e-08, -0.39999998, -0.39999998, -5.732056e-15, -5.2453665e-08, 8.470329e-23, 1, -1.7484554e-08, 0.21041429, 0.49246007, 0.40590894)
+mesh = SubResource("CylinderMesh_yf5fn")

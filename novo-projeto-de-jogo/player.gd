@@ -3,6 +3,7 @@ extends CharacterBody3D
 var speed
 const WALK_SPEED = 5.0
 const SPRINT_SPEED = 7.5
+const BACKWARD_SPEED = 3.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.003
 
@@ -53,9 +54,16 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
-	#CORRERRRRR
+	#AQUI É A MOVIMENTAÇÃO BASICA DE ANDAR (movido pra cima, pois a velocidade agora depende da direção)
+	var input_dir := Input.get_vector("left", "right", "up", "down")
+	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
+	#CORRERRRRR (e impedir correr/andar rápido de costas)
 	if isCrouching:
 		speed = crounchingSpeed
+	elif input_dir.y > 0:
+		#andando de costas (input_dir.y positivo = segurando "down")
+		speed = BACKWARD_SPEED
 	elif Input.is_action_pressed("sprint"):
 		speed = SPRINT_SPEED
 	else:
@@ -72,9 +80,6 @@ func _physics_process(delta: float) -> void:
 			movementStateChange("uncrouch")
 			speed = WALK_SPEED
 		
-	#AQUI É A MOVIMENTAÇÃO BASICA DE ANDAR
-	var input_dir := Input.get_vector("left", "right", "up", "down")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if is_on_floor():
 		if direction:
 			velocity.x = direction.x * speed
@@ -130,4 +135,3 @@ func changeCollisionShapeTo(shape):
 			
 func on_died():
 	get_tree().reload_current_scene()
-	

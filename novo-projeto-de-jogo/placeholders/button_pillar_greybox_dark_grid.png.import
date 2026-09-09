@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjsyflttk6q67"
-path.s3tc="res://.godot/imported/greybox_teal_grid.png-aaae718c39217e4b42eb3695a89149c9.s3tc.ctex"
+uid="uid://dqwfll4dkmq4p"
+path.s3tc="res://.godot/imported/button_pillar_greybox_dark_grid.png-4ae3a299e89e422eed46bcaa57a2123b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "daf4add81b5bf28953424848dd54feb6"
+}
 
 [deps]
 
-source_file="res://placeholders/GreyboxTextures/greybox_teal_grid.png"
-dest_files=["res://.godot/imported/greybox_teal_grid.png-aaae718c39217e4b42eb3695a89149c9.s3tc.ctex"]
+source_file="res://placeholders/button_pillar_greybox_dark_grid.png"
+dest_files=["res://.godot/imported/button_pillar_greybox_dark_grid.png-4ae3a299e89e422eed46bcaa57a2123b.s3tc.ctex"]
 
 [params]
 

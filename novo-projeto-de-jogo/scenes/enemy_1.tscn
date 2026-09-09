@@ -5,8 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://diweaq26cuxc2" path="res://placeholders/GreyboxTextures/greybox_red_solid.png" id="1_ejytf"]
 [ext_resource type="Script" uid="uid://c8mf3fmtgf5j3" path="res://scripts/components/health_component.gd" id="2_ejytf"]
 [ext_resource type="Script" uid="uid://dclcdpk60ovuu" path="res://scripts/States/state_machines.gd" id="5_d3026"]
+[ext_resource type="Script" uid="uid://do2100o2qr3yw" path="res://scripts/components/perception_area.gd" id="5_x5oq2"]
 [ext_resource type="Script" uid="uid://csv0acx0542e2" path="res://scripts/States/EnemyIdleTest.gd" id="6_l21ug"]
 [ext_resource type="FontFile" uid="uid://dqb10d7od2bsg" path="res://placeholders/fonts/FczlFontRegular-e9Jol.ttf" id="7_6nrqq"]
+[ext_resource type="Script" uid="uid://c56pd6diomxfj" path="res://scripts/States/EnemyFollowTest.gd" id="7_hcr21"]
 [ext_resource type="Texture2D" uid="uid://d2c2uc86q463j" path="res://placeholders/kenney_googly-eyes/googly-b.png" id="8_oweuj"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g4v7s"]
@@ -22,6 +24,8 @@ points = PackedVector3Array(0.38808236, 0.5888041, 0.013298327, -0.388082, -0.58
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
 height = 1.8701172
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_g4v7s"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_57qmd"]
 albedo_texture = ExtResource("8_oweuj")
@@ -56,20 +60,34 @@ script = ExtResource("2_ejytf")
 max_health = 50
 metadata/_custom_type_script = "uid://c8mf3fmtgf5j3"
 
+[node name="PerceptionArea" type="Area3D" parent="." unique_id=1636028210]
+script = ExtResource("5_x5oq2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PerceptionArea" unique_id=1196549181]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 0, 0)
+shape = SubResource("SphereShape3D_g4v7s")
+debug_color = Color(0.6313726, 0.5294118, 0, 1)
+
 [node name="StateMachines" type="Node" parent="." unique_id=215992300 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("5_d3026")
-initial_state = NodePath("EnemyIdleTest")
+initial_state = NodePath("Idle")
 
-[node name="EnemyIdleTest" type="Node" parent="StateMachines" unique_id=480492224 node_paths=PackedStringArray("enemy")]
+[node name="Idle" type="Node" parent="StateMachines" unique_id=480492224 node_paths=PackedStringArray("enemy")]
 script = ExtResource("6_l21ug")
 enemy = NodePath("../..")
 wander_radius = 3.0
 metadata/_custom_type_script = "uid://csv0acx0542e2"
 
+[node name="Follow" type="Node" parent="StateMachines" unique_id=1960594155 node_paths=PackedStringArray("enemy")]
+script = ExtResource("7_hcr21")
+enemy = NodePath("../..")
+metadata/_custom_type_script = "uid://c56pd6diomxfj"
+
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1733259390]
 
 [node name="HPBar" type="Label3D" parent="." unique_id=1402115776]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0782136, 0)
+billboard = 1
 text = "HP: 50"
 font = ExtResource("7_6nrqq")
 

@@ -32,8 +32,8 @@ var gravity = 9.8
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	$HealthComponent.died.connect(on_died)
-	$HealthComponent.health_changed.connect(_on_health_changed)
+	$Components/HealthComponent.died.connect(on_died)
+	$Components/HealthComponent.health_changed.connect(_on_health_changed)
 	
 #HUD IMPROVISADO TIRAR DEPOIS
 func _on_health_changed(current_health: float) -> void:
@@ -44,6 +44,9 @@ func _unhandled_input(event):
 		rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
+		
+	if event.is_action_pressed("attack"):
+		$Components/WeaponController.fire()
 
 func _physics_process(delta: float) -> void:
 	#gravidade

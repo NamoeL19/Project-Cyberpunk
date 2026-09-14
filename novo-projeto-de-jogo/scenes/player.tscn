@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://duft28gepd4yh" path="res://player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://cvmlbomm2sfbd" path="res://scripts/components/hurt_component.gd" id="2_qhqgy"]
 [ext_resource type="Script" uid="uid://c8mf3fmtgf5j3" path="res://scripts/components/health_component.gd" id="3_dqkch"]
+[ext_resource type="Script" uid="uid://dqpm2d1g275fs" path="res://assets/weapons/scripts/weapon_controller.gd" id="4_qlg0r"]
+[ext_resource type="Resource" uid="uid://c7ngle4eh2gaf" path="res://assets/weapons/recourses/pistol.tres" id="5_tuyoq"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g4v7s"]
 radius = 0.4
@@ -85,17 +87,27 @@ debug_color = Color(0.62015855, 0.5348062, 0, 0.41960785)
 
 [node name="HurtBoxComponent" type="Area3D" parent="." unique_id=255009547 node_paths=PackedStringArray("health_component")]
 script = ExtResource("2_qhqgy")
-health_component = NodePath("../HealthComponent")
+health_component = NodePath("../Components/HealthComponent")
 metadata/_custom_type_script = "uid://cvmlbomm2sfbd"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBoxComponent" unique_id=1980825538]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9802322e-08, 0.099999994, 0)
 shape = SubResource("BoxShape3D_g4v7s")
 
-[node name="HealthComponent" type="Node" parent="." unique_id=44574406]
+[node name="Components" type="Node" parent="." unique_id=338022322]
+
+[node name="HealthComponent" type="Node" parent="Components" unique_id=44574406]
 script = ExtResource("3_dqkch")
 max_health = 50
 metadata/_custom_type_script = "uid://c8mf3fmtgf5j3"
+
+[node name="WeaponController" type="Node" parent="Components" unique_id=465992568 node_paths=PackedStringArray("weapon_model_parent", "camera", "shooter")]
+script = ExtResource("4_qlg0r")
+current_weapon = ExtResource("5_tuyoq")
+weapon_model_parent = NodePath("../../head/Camera3D")
+camera = NodePath("../../head/Camera3D")
+shooter = NodePath("../..")
+metadata/_custom_type_script = "uid://dqpm2d1g275fs"
 
 [node name="PlayerHud" type="Node" parent="." unique_id=1540902019]
 

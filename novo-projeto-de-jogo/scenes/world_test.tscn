@@ -384,7 +384,7 @@ transform = Transform3D(1.0000005, 0, -7.1054274e-15, 0, 1.0000005, 0, 7.1054274
 shape = SubResource("BoxShape3D_g4v7s")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Gym Principal" unique_id=754212369]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.365767, -0.00049972534, -16.792664)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.880058, -0.00049972534, -16.792664)
 mesh = SubResource("CapsuleMesh_g4v7s")
 
 [node name="Label3D" type="Label3D" parent="Gym Principal/MeshInstance3D" unique_id=10993139]
@@ -487,6 +487,9 @@ material = SubResource("StandardMaterial3D_q53c7")
 
 [node name="Enemy1" parent="." unique_id=1240258861 instance=ExtResource("10_6qtqi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.594482, 5.656098, -7.3835125)
+
+[node name="Enemy2" parent="." unique_id=1051843392 instance=ExtResource("10_6qtqi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.594482, 5.656098, 3.7547736)
 
 [connection signal="body_entered" from="Gym Principal/button_pillar/Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Gym Principal/button_pillar/Area3D" to="." method="_on_area_3d_body_exited"]

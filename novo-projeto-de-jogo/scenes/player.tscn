@@ -60,6 +60,18 @@ size = Vector3(0.8, 1.8000001, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_qhqgy"]
 font_size = 38
 font_color = Color(1, 0.14509805, 0.09019608, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.5176471)
+shadow_offset = Vector2(2.045, 5.455)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qlg0r"]
+font_size = 31
+font_color = Color(0, 1, 1, 1)
+shadow_size = 7
+shadow_color = Color(0, 0, 0, 0.4627451)
+shadow_offset = Vector2(2.9, 2.885)
 
 [node name="player" type="CharacterBody3D" unique_id=43849580 groups=["player"]]
 script = ExtResource("1_3vyb7")
@@ -77,6 +89,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6586018, 0)
 
 [node name="Camera3D" type="Camera3D" parent="head" unique_id=1974227084]
 
+[node name="RayCast3D" type="RayCast3D" parent="head/Camera3D" unique_id=1169817994]
+target_position = Vector3(0, -1, -100)
+collision_mask = 3
+collide_with_areas = true
+debug_shape_custom_color = Color(0, 0.4745098, 0, 1)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=566155448]
 libraries/ = SubResource("AnimationLibrary_qhqgy")
 
@@ -86,6 +104,8 @@ shape = SubResource("CapsuleShape3D_g4v7s")
 debug_color = Color(0.62015855, 0.5348062, 0, 0.41960785)
 
 [node name="HurtBoxComponent" type="Area3D" parent="." unique_id=255009547 node_paths=PackedStringArray("health_component")]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("2_qhqgy")
 health_component = NodePath("../Components/HealthComponent")
 metadata/_custom_type_script = "uid://cvmlbomm2sfbd"
@@ -101,11 +121,11 @@ script = ExtResource("3_dqkch")
 max_health = 50
 metadata/_custom_type_script = "uid://c8mf3fmtgf5j3"
 
-[node name="WeaponController" type="Node" parent="Components" unique_id=465992568 node_paths=PackedStringArray("weapon_model_parent", "camera", "shooter")]
+[node name="WeaponController" type="Node" parent="Components" unique_id=465992568 node_paths=PackedStringArray("weapon_model_parent", "muzzle_raycast", "shooter")]
 script = ExtResource("4_qlg0r")
 current_weapon = ExtResource("5_tuyoq")
 weapon_model_parent = NodePath("../../head/Camera3D")
-camera = NodePath("../../head/Camera3D")
+muzzle_raycast = NodePath("../../head/Camera3D/RayCast3D")
 shooter = NodePath("../..")
 metadata/_custom_type_script = "uid://dqpm2d1g275fs"
 
@@ -114,9 +134,17 @@ metadata/_custom_type_script = "uid://dqpm2d1g275fs"
 [node name="CanvasLayer" type="CanvasLayer" parent="PlayerHud" unique_id=1885249134]
 
 [node name="HealthLabel" type="Label" parent="PlayerHud/CanvasLayer" unique_id=90397821]
-offset_left = 21.0
-offset_top = 542.0
-offset_right = 121.0
-offset_bottom = 595.0
+offset_left = 28.0
+offset_top = 622.0
+offset_right = 171.0
+offset_bottom = 675.0
 text = "Vida: 50"
 label_settings = SubResource("LabelSettings_qhqgy")
+
+[node name="AmmoLabel" type="Label" parent="PlayerHud/CanvasLayer" unique_id=1557111098]
+offset_left = 1022.0
+offset_top = 625.0
+offset_right = 1250.0
+offset_bottom = 669.0
+text = "Munição: 12/12"
+label_settings = SubResource("LabelSettings_qlg0r")

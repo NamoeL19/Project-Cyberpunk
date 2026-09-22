@@ -15,3 +15,7 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if player_in_range and Input.is_action_just_pressed("interact"):
 		area_percepcao.visible = not area_percepcao.visible
+
+
+func _on_area_3d_2_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.

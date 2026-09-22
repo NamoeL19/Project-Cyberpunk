@@ -29,16 +29,22 @@ var gravity = 9.8
 
 #HUD IMPROVISADO TIRAR DEPOIS
 @onready var health_label = $PlayerHud/CanvasLayer/HealthLabel
+@onready var ammo_label = $PlayerHud/CanvasLayer/AmmoLabel
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	$Components/HealthComponent.died.connect(on_died)
 	$Components/HealthComponent.health_changed.connect(_on_health_changed)
+	$Components/WeaponController.ammo_changed.connect(_on_ammo_changed)
 	
 #HUD IMPROVISADO TIRAR DEPOIS
 func _on_health_changed(current_health: float) -> void:
 	health_label.text = "Vida: %d" % current_health
-	
+
+#HUD IMPROVISADO TIRAR DEPOIS
+func _on_ammo_changed(current_ammo: int, max_ammo: int, weapon_name: String) -> void:
+	ammo_label.text = "Munição: %d/%d" % [current_ammo, max_ammo]
+
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * SENSITIVITY)
@@ -47,7 +53,10 @@ func _unhandled_input(event):
 		
 	if event.is_action_pressed("attack"):
 		$Components/WeaponController.fire()
-
+		
+	if event.is_action_pressed("reload_weapon"):
+		$Components/WeaponController.reload()
+		
 func _physics_process(delta: float) -> void:
 	#gravidade
 	if not is_on_floor():
@@ -103,7 +112,6 @@ func _physics_process(delta: float) -> void:
 	var velocity_clamped = clamp(velocity.length(), 0.5, SPRINT_SPEED * 2)
 	var target_fov = BASE_FOV + FOV_CHANGE * velocity_clamped
 	camera.fov = lerp(camera.fov, target_fov, delta * 8.0)
-	
 	
 	move_and_slide()
 

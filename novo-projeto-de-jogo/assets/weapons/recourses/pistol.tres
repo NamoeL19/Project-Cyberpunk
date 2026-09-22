@@ -6,3 +6,4 @@
 [resource]
 script = ExtResource("1_nni2e")
 weapon_model = ExtResource("2_eya8m")
+infinite_ammo = true

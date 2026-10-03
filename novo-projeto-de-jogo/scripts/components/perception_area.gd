@@ -1,5 +1,5 @@
-extends Area3D
 class_name PerceptionArea
+extends Area3D
 
 signal player_detected
 signal player_lost
@@ -11,6 +11,8 @@ var player: CharacterBody3D
 var player_in_range: bool = false
 var player_visible: bool = false
 var sight_check_timer: float = 0.0
+
+@onready var collision_shape: CollisionShape3D = $CollisionShape3D
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
@@ -53,3 +55,8 @@ func _check_line_of_sight() -> void:
 	elif not can_see and player_visible:
 		player_visible = false
 		player_lost.emit()
+
+func get_radius() -> float:
+	if collision_shape and collision_shape.shape is SphereShape3D:
+		return collision_shape.shape.radius
+	return 10.0

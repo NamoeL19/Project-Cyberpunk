@@ -1,6 +1,9 @@
 class_name Weapon extends Resource
 
+enum WeaponType { RANGED, MELEE }
+
 @export var weapon_name: String = "Pistol"
+@export var weapon_type: WeaponType = WeaponType.RANGED
 @export var damage: float = 25.0
 @export var max_ammo: int = 12
 @export var fire_rate: float = 0.2

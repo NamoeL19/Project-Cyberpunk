@@ -5,24 +5,47 @@ class_name EnemyFollowTest
 @export var move_speed := 4.5
 @export var gravity := 9.8
 @export var lose_sight_time := 1.5
+@export var attack_range_percent := 0.7
 
 var player: CharacterBody3D
 var nav_agent: NavigationAgent3D
 var perception: PerceptionArea
+var weapon_controller: WeaponController
 var lost_sight_timer: float
 
 func enter():
 	if enemy:
 		nav_agent = enemy.get_node("NavigationAgent3D")
 		perception = enemy.get_node("PerceptionArea")
+		weapon_controller = enemy.get_node("Components/WeaponController")
 	player = get_tree().get_first_node_in_group("player")
 	lost_sight_timer = lose_sight_time
+
+func get_attack_range() -> float:
+	var weapon_reach := 10.0
+	if weapon_controller and weapon_controller.current_weapon:
+		weapon_reach = weapon_controller.current_weapon.weapon_range * attack_range_percent
+
+	var perception_radius := 10.0
+	if perception:
+		perception_radius = perception.get_radius()
+
+	print("weapon_reach: ", weapon_reach, " | perception_radius: ", perception_radius)
+
+	return min(weapon_reach, perception_radius)
 
 func update(_delta: float):
 	if perception and perception.player_visible:
 		lost_sight_timer = lose_sight_time
 		if nav_agent and player:
 			nav_agent.target_position = player.global_position
+
+		var distance = enemy.global_position.distance_to(player.global_position)
+		var attack_range = get_attack_range()
+		print("distância: ", distance, " | attack_range: ", attack_range)
+		if distance <= attack_range:
+			Transitioned.emit(self, "attack")
+			return
 	else:
 		lost_sight_timer -= _delta
 		if lost_sight_timer <= 0:

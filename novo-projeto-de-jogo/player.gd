@@ -144,5 +144,5 @@ func changeCollisionShapeTo(shape):
 			$StandingCollisionShape.disabled = false
 			$CrounchCollisionShape.disabled = true
 			
-func on_died():
-	get_tree().reload_current_scene()
+func on_died() -> void:
+	get_tree().call_deferred("reload_current_scene")

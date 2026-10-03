@@ -10,6 +10,9 @@
 [ext_resource type="FontFile" uid="uid://dqb10d7od2bsg" path="res://placeholders/fonts/FczlFontRegular-e9Jol.ttf" id="7_6nrqq"]
 [ext_resource type="Script" uid="uid://c56pd6diomxfj" path="res://scripts/States/EnemyFollowTest.gd" id="7_hcr21"]
 [ext_resource type="Texture2D" uid="uid://d2c2uc86q463j" path="res://placeholders/kenney_googly-eyes/googly-b.png" id="8_oweuj"]
+[ext_resource type="Script" uid="uid://c4i0h1po7cxnm" path="res://scripts/States/EnemyAttackTest.gd" id="9_tcrox"]
+[ext_resource type="Script" uid="uid://dqpm2d1g275fs" path="res://assets/weapons/scripts/weapon_controller.gd" id="11_jvuks"]
+[ext_resource type="Resource" uid="uid://c7ngle4eh2gaf" path="res://assets/weapons/recourses/pistol.tres" id="12_tcrox"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g4v7s"]
 radius = 0.4
@@ -26,6 +29,7 @@ points = PackedVector3Array(0.38808236, 0.5888041, 0.013298327, -0.388082, -0.58
 height = 1.8701172
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_g4v7s"]
+radius = 10.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_57qmd"]
 albedo_texture = ExtResource("8_oweuj")
@@ -46,6 +50,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_yf5fn")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1497538881]
 shape = SubResource("ConvexPolygonShape3D_umrl8")
 
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1655906591]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59001803, 0)
+target_position = Vector3(0, -1, 100)
+collision_mask = 3
+collide_with_areas = true
+
 [node name="HurtBoxComponent" type="Area3D" parent="." unique_id=1145027248 node_paths=PackedStringArray("health_component")]
 collision_layer = 2
 collision_mask = 2
@@ -64,28 +74,32 @@ metadata/_custom_type_script = "uid://c8mf3fmtgf5j3"
 
 [node name="PerceptionArea" type="Area3D" parent="." unique_id=1636028210]
 collision_layer = 4
-collision_mask = 4
+collision_mask = 5
 script = ExtResource("5_x5oq2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PerceptionArea" unique_id=1196549181]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 0, 0)
 shape = SubResource("SphereShape3D_g4v7s")
 debug_color = Color(0.6313726, 0.5294118, 0, 1)
 
 [node name="StateMachines" type="Node" parent="." unique_id=215992300 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("5_d3026")
-initial_state = NodePath("Idle")
+initial_state = NodePath("idle")
 
-[node name="Idle" type="Node" parent="StateMachines" unique_id=480492224 node_paths=PackedStringArray("enemy")]
+[node name="idle" type="Node" parent="StateMachines" unique_id=480492224 node_paths=PackedStringArray("enemy")]
 script = ExtResource("6_l21ug")
 enemy = NodePath("../..")
 wander_radius = 3.0
 metadata/_custom_type_script = "uid://csv0acx0542e2"
 
-[node name="Follow" type="Node" parent="StateMachines" unique_id=1960594155 node_paths=PackedStringArray("enemy")]
+[node name="follow" type="Node" parent="StateMachines" unique_id=1960594155 node_paths=PackedStringArray("enemy")]
 script = ExtResource("7_hcr21")
 enemy = NodePath("../..")
 metadata/_custom_type_script = "uid://c56pd6diomxfj"
+
+[node name="attack" type="Node" parent="StateMachines" unique_id=988242889 node_paths=PackedStringArray("enemy")]
+script = ExtResource("9_tcrox")
+enemy = NodePath("../..")
+metadata/_custom_type_script = "uid://c4i0h1po7cxnm"
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1733259390]
 
@@ -102,3 +116,14 @@ mesh = SubResource("CylinderMesh_yf5fn")
 [node name="ZOLHUDO_ESQ" type="MeshInstance3D" parent="." unique_id=1912638380]
 transform = Transform3D(5.2453665e-08, -4.371139e-08, -0.39999998, -0.39999998, -5.732056e-15, -5.2453665e-08, 8.470329e-23, 1, -1.7484554e-08, 0.21041429, 0.49246007, 0.40590894)
 mesh = SubResource("CylinderMesh_yf5fn")
+
+[node name="Components" type="Node" parent="." unique_id=859412398]
+
+[node name="WeaponController" type="Node" parent="Components" unique_id=250552363 node_paths=PackedStringArray("weapon_model_parent", "muzzle_raycast", "shooter")]
+script = ExtResource("11_jvuks")
+current_weapon = ExtResource("12_tcrox")
+weapon_model_parent = NodePath("../../ZOLHUDO_DIR")
+muzzle_raycast = NodePath("../../RayCast3D")
+shooter = NodePath("../..")
+infinite_ammo = true
+metadata/_custom_type_script = "uid://dqpm2d1g275fs"

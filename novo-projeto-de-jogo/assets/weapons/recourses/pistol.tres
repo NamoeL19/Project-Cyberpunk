@@ -5,5 +5,5 @@
 
 [resource]
 script = ExtResource("1_nni2e")
+weapon_range = 50.0
 weapon_model = ExtResource("2_eya8m")
-infinite_ammo = true

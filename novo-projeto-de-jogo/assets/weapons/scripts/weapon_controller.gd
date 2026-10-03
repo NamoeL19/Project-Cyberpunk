@@ -24,33 +24,51 @@ func _ready() -> void:
 		muzzle_raycast.add_exception(shooter)
 
 func spawn_weapon_model():
+	if not current_weapon or not current_weapon.weapon_model:
+		return
+
 	if current_weapon_model:
 		current_weapon_model.queue_free()
 
-	if current_weapon.weapon_model:
-		current_weapon_model = current_weapon.weapon_model.instantiate()
-		weapon_model_parent.add_child(current_weapon_model)
-		current_weapon_model.position = current_weapon.weapon_position
+	if not weapon_model_parent:
+		print("WeaponController: weapon_model_parent não definido, pulando spawn do modelo visual")
+		return
+
+	current_weapon_model = current_weapon.weapon_model.instantiate()
+	weapon_model_parent.add_child(current_weapon_model)
+	current_weapon_model.position = current_weapon.weapon_position
 
 func fire() -> void:
 	if not can_fire or not current_weapon or is_reloading:
 		return
-
+		
 	if current_ammo <= 0 and not infinite_ammo:
 		print("Sem munição! Aperte R pra recarregar")
 		return
-
+		
+	var tree = get_tree()
+	if tree == null:
+		return
+		
 	can_fire = false
 	if not infinite_ammo:
 		current_ammo -= 1
 		_emit_ammo_changed()
-	print("Atirou! Munição restante: ", current_ammo if not infinite_ammo else "∞")
-
+	print("Atirou! Munição restante: ", str(current_ammo) if not infinite_ammo else "∞")
+	
 	_check_hit()
-
-	await get_tree().create_timer(current_weapon.fire_rate).timeout
+	
+	tree = get_tree()
+	if tree == null:
+		return
+		
+	await tree.create_timer(current_weapon.fire_rate).timeout
+	
+	if not is_instance_valid(self) or not is_inside_tree():
+		return
+		
 	can_fire = true
-
+	
 func reload() -> void:
 	if not current_weapon or is_reloading or infinite_ammo:
 		return
@@ -59,12 +77,18 @@ func reload() -> void:
 		print("Munição já está cheia")
 		return
 
+	if not is_inside_tree():
+		return
+
 	is_reloading = true
 	can_fire = false
 	print("Recarregando...")
 	reload_started.emit(current_weapon.reload_time)
 
 	await get_tree().create_timer(current_weapon.reload_time).timeout
+
+	if not is_instance_valid(self) or not is_inside_tree():
+		return
 
 	current_ammo = current_weapon.max_ammo
 	is_reloading = false
